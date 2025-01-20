@@ -1,102 +1,104 @@
+# Home Lab: AD & PowerShell (Hyper-V)
 
-<h1>Home Lab: AD & PowerShell (Hyper-V)</h1>
+## Description
+This tutorial provides a step-by-step guide on setting up a basic home lab with an Active Directory (AD) using Hyper-V Manager and creating 1,000 users in AD with PowerShell.
 
+## Languages and Utilities Used
+- Windows Features  
+- PowerShell  
+- Command Prompt  
+- Hyper-V Manager  
 
-<h2>Description</h2>
-This project provides a step-by-step guide on setting up a basic home lab with Active Directory using Hyper-V Manager. You will learn how to create virtual machines for both Windows Server and a Windows 10 OS client, set up Active Directory, add users using PowerShell, and join the Windows 10 OS client to the Windows Server domain. This guide is ideal for users who want to practice and test Active Directory and PowerShell in a virtualized environment. It also simulates how many corporate IT systems are structured.
-<br />
+## Environments Used
+- Windows 11 Pro/Enterprise (22H2)  
 
-<h2>Languages and Utilities Used</h2>
-
-- **Windows Server 2016** (for Active Directory setup)
-- **Hyper-V Manager** (virtualization software)
-- **PowerShell** (for adding users to Active Directory)
-- **Command Prompt** (optional for troubleshooting)
-- **Windows 10/11** (for host machine)
-  
-<h2>Environments Used</h2>
-
-- **Windows 11 Pro/Enterprise** 22H2 (for host machine)
-
-
-<h2>Prerequisites</h2>
-
-- Hypver installed on your host machine.
-- Windows Server ISO for the virtual machine.
-- Basic understanding of Active Directory and PowerShell commands.
-- Ensure that virtualization is enabled in your system BIOS/UEFI settings.
-
-<h2>Walk-through steps:</h2>
-
-<b>Open Windows Features:</b>
-- To open Windows Features, you can click the magnifying glass icon in the taskbar, search for "Windows Features," and open it when it appears in the search results.
-
-<p align="center">
-<img src="https://imgur.com/mu3m4lp.png" height="80%" width="80%" alt="Enable Windows Features"/>
-<br/>
-<br/>
-<img src="https://imgur.com/3NnrxAG.png" height="80%" width="80%" alt="Enable Windows Features"/>
-<br />
-<br />
-</p>
-  
----
-  
-<b>Enable Hyper-V:</b>
-- To enable Hyper-V, once the Windows Features window is open, look for "Hyper-V," check the box next to it, and then click "OK" to apply the settings.
-<p align="center">
-<img src="https://imgur.com/4VOrxqu.png" height="80%" width="80%" alt="Enable Hyper-V"/>
-<br />
-<br />
-</p>
- 
----
-  
-<b>Restart the Computer:</b>
-- Once the settings are applied, restart your computer.
-<p align="center">
-<img src="https://imgur.com/e3cBk5u.png" height="80%" width="80%" alt="Restart Windows"/>
-<br />
-<br />
-</p>
-  
----
-  
-<b>Access Hyper-V Manager:</b>
-- Log back into your computer, and using the magnifying glass icon, search for "Hyper-V" and open it.
-- Alternatively, you can open Command Prompt and type `systeminfo` to check if Hyper-V is installed on your device.
-<p align="center">
-<img src="https://imgur.com/NmWhEi4.png" height="80%" width="80%" alt="Open Hyper-V Manager"/>
-<br />
-<br />
-<img src="https://imgur.com/Go1wZyF.png" height="80%" width="80%" alt="Open Hyper-V Manager"/>
-<br />
-<br />
-</p>
-
+## Files You Need to Download
+[DOWNLOAD NOW](#)
 
 ---
 
-<b>Create a Test Virtual Machine:</b>
-- Once Hyper-V is open, follow the on-screen instructions to connect your local machine to Hyper-V. 
-- Next, right-click on the local machine, select **New**, and then click **Virtual Machine** to start creating a virtual machine. 
-- Finally, follow the setup wizard to create a test virtual machine.
-  
-<p align="center">
-<img src="https://imgur.com/ov5Txuu.png" height="80%" width="80%" alt="Create Virtual Machine"/>
-<br />
-<br />
-<img src="https://imgur.com/g8owbuj.png" height="80%" width="80%" alt="Create Virtual Machine"/>
-<br />
-<br />
-<img src="https://imgur.com/BqTeGs0.png" height="80%" width="80%" alt="Create Virtual Machine"/>
-</p>
+## Steps Included
+1. **Create two virtual machines**
+2. **Install & configure AD, RAS/NAT, and DHCP**
+3. **Create 1,000 users in AD with PowerShell**
+4. **Join Windows clients to the domain**
+5. **Log in to the client machine with a created user**
 
 ---
 
-<h2>Conclusion</h2>
+## Walk-through Steps
 
-- You have now successfully installed Hyper-V and created a virtual machine.
-- Note: The virtual machine will not function until an operating system (OS) is added and installed. Ensure you have the OS installation media (e.g., ISO file) ready to complete the setup.
+### Step 1 – Create Two Virtual Machines
+Watch my video on how to create the two virtual machines: [YouTube.com](#)
+
+### Step 2 – Install & Configure AD, RAS/NAT, and DHCP
+Watch my video on how to install and configure AD, RAS/NAT, and DHCP: [YouTube.com](#)
+
+### Step 3 – Create 1,000 Users in AD with PowerShell
+If you haven't already, download the PowerShell script: [DOWNLOAD NOW](#).
+
+1. Extract the zip file on your host PC.
+2. COPY the **AD_PS-master** folder from your host PC then go to the Windows Server 2016 virtual machine and PASTE. It really that simple trust me.
 
 
+3. Open **PowerShell ISE** as an administrator and load the `1_CREATE_USERS` file from the **AD_PS-master** folder.
+4. Run the following commands before executing the script:
+
+   ```powershell
+   Set-ExecutionPolicy Unrestricted
+   cd C:\Users\a-egade\Desktop\AD_PS-master
+   ls
+   ```
+
+   - `Set-ExecutionPolicy Unrestricted` (This allows the script to run without restrictions.)
+   - `cd` to the correct folder location where the script is saved.
+   - `ls` to verify the files in the folder.
+
+5. Click the **Play** button in PowerShell ISE to run the script.
+
+Your code should look something like this when creating new users:
+
+
+### Step 4 – Join Windows Clients to the Domain
+To join the client machine to the domain:
+
+1. Ensure both the client and domain controller (DC) server are on the same **NIC (Network Interface Card).**
+2. Once logged into the client machine, open **Command Prompt (CMD)** and run:
+   ```cmd
+   ipconfig
+   ping mydomain.com
+   ```
+   - This verifies network settings and connectivity to the domain server.
+   - The result should be as followed in the image.
+     <img src="https://imgur.com/dazfCRo.png" height="80%" width="80%" alt="Join-PC"/>
+
+3. Open **Settings > System > About > Rename this PC (Advanced) > Change.**
+4. Under **Member of**, select **Domain** and enter **mydomain.com**.
+5. Click **OK**, then enter your **Domain Controller (DC) credentials** when prompted.
+
+<img src="https://imgur.com/TCWxw4a.png" height="80%" width="80%" alt="Join-PC"/>
+
+
+### Step 5 – Log in to the Client Machine with a Created User
+Now that all the steps are complete, we will test logging into the client machine with one of the created accounts:
+
+1. Log out of the client machine.
+2. Select **Other Users.**
+3. Log in using one of the generated AD accounts for example below:
+   
+   - **Username:** `aabrev`  
+   - **Password:** `Password1`
+   
+<img src="https://imgur.com/H9X18dO.png" height="80%" width="80%" alt="AD-Users"/>
+<img src="https://imgur.com/1OmQIqp.png" height="80%" width="80%" alt="Client-Login-Screen"/>
+<img src="https://imgur.com/dkC56WO.png" height="80%" width="80%" alt="Client-Logged-on"/>
+
+
+
+
+If you can successfully log in with the AD account, your lab setup is complete! Additionally, since we configured **RAS/NAT**, the client machine should have internet access through the domain controller.
+
+---
+
+## 🎉 Congratulations! Your Home Lab setup is now complete.
+  Full Video of the final Lab.
