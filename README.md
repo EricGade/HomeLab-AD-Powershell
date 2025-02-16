@@ -13,7 +13,7 @@ This tutorial provides a step-by-step guide on setting up a basic home lab with 
 - Windows 11 Pro/Enterprise (22H2)  
 
 ## Files You Need to Download
-[DOWNLOAD NOW](#)
+[DOWNLOAD NOW](https://github.com/EricGade/HomeLab-AD-Powershell/blob/main/AD_PS-master.zip)
 
 ---
 
