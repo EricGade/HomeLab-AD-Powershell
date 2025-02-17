@@ -1,104 +1,90 @@
-# Home Lab: AD & PowerShell (Hyper-V)
+# Home Lab: Active Directory AD & PowerShell 
 
 ## Description
-This tutorial provides a step-by-step guide on setting up a basic home lab with an Active Directory (AD) using Hyper-V Manager and creating 1,000 users in AD with PowerShell.
+This tutorial provides a step-by-step guide on setting up a basic home lab with an Active Directory (AD) using Hyper-V Manager and creating 1000 users in AD with PowerShell.
 
 ## Languages and Utilities Used
-- Windows Features  
-- PowerShell  
-- Command Prompt  
-- Hyper-V Manager  
+- PowerShell
+- Command Prompt
+- Hyper-V Manager
 
 ## Environments Used
-- Windows 11 Pro/Enterprise (22H2)  
+- Windows 11 Pro/Enterprise (22H2)
 
 ## Files You Need to Download
-[DOWNLOAD NOW](https://github.com/EricGade/HomeLab-AD-Powershell/blob/main/AD_PS-master.zip)
-
----
+- [Win Server 2016 Download](https://info.microsoft.com/ww-landing-windows-server-2016.html)
+- [Windows 10 ISO Download](https://www.microsoft.com/en-us/software-download/windows10)
+- [AD_PS-master Download file](https://github.com/EricGade/HomeLab-AD-Powershell/blob/main/AD_PS-master.zip)
 
 ## Steps Included
-1. **Create two virtual machines**
-2. **Install & configure AD, RAS/NAT, and DHCP**
-3. **Create 1,000 users in AD with PowerShell**
-4. **Join Windows clients to the domain**
-5. **Log in to the client machine with a created user**
-
----
+1. Virtual Machines Setup
+    - Create 2 Virtual Switches ("NAT" and "SUBNETA")
+    - Create 2 Virtual Machines ("DC1" and "Client1")
+2. Install & Configure AD, RAS/NAT, DHCP
+3. Create 1000 Users in AD using PowerShell
+4. Join "Client1" to the Domain
+5. Log in to "Client1" with a Created User
 
 ## Walk-through Steps
 
-### Step 1 – Create Two Virtual Machines
-Watch my video on how to create the two virtual machines: [YouTube.com](#)
+### Step 1: Virtual Machines Setup
+#### Create 2 Virtual Switches ("NAT" and "SUBNETA")
+Open Hyper-V Manager. Right-click on the local machine and select **Virtual Switch Manager**. Alternatively, select **Virtual Switch Manager** from the Action pane.
 
-### Step 2 – Install & Configure AD, RAS/NAT, and DHCP
-Watch my video on how to install and configure AD, RAS/NAT, and DHCP: [YouTube.com](#)
+Next, click on **New Virtual Network Switch** and create two virtual switches:
+- **NAT** (External)
+- **SUBNETA** (Private)
+![Virtual Switch Manager Open](https://imgur.com/6bGexoi.png)
 
-### Step 3 – Create 1,000 Users in AD with PowerShell
-If you haven't already, download the PowerShell script: [DOWNLOAD NOW](#).
+#### Create 2 Virtual Machines ("DC1" and "Client1")
+1. Configure the Virtual Machine settings to match the summary shown below.
+2. Attach **Windows Server 2016 ISO** to the **DC1** virtual machine.
+![Virtual Machine Settings](https://imgur.com/ZdZtpFk.png)
 
-1. Extract the zip file on your host PC.
-2. COPY the **AD_PS-master** folder from your host PC then go to the Windows Server 2016 virtual machine and PASTE. It really that simple trust me.
+#### Configure DC1 Network Adapters
+1. Right-click on **DC1**, select **Settings**.
+2. Add a second network adapter:
+    - **NAT** for external access
+    - **SUBNETA** for internal network
+![Virtual Machine Settings](https://imgur.com/BpG2ZDi.png)
 
+#### Install Windows Server 2016 on DC1
+1. Start **DC1** and install **Windows Server 2016**.
 
-3. Open **PowerShell ISE** as an administrator and load the `1_CREATE_USERS` file from the **AD_PS-master** folder.
-4. Run the following commands before executing the script:
+#### Rename Network Adapters in DC1
+1. Open **Network Settings** in **DC1**.
+2. Rename **NAT** and **SUBNETA** for easy identification.
+![Virtual Machine Settings](https://imgur.com/Tzwn4Dx.png)
 
-   ```powershell
-   Set-ExecutionPolicy Unrestricted
-   cd C:\Users\a-egade\Desktop\AD_PS-master
-   ls
-   ```
+#### Rename Computer in DC1
+1. Open **System Properties** in **DC1**.
+2. Click **Change** next to the computer name.
+3. Rename the computer to **DC1**.
+4. Restart the machine to apply the changes.
 
-   - `Set-ExecutionPolicy Unrestricted` (This allows the script to run without restrictions.)
-   - `cd` to the correct folder location where the script is saved.
-   - `ls` to verify the files in the folder.
+#### Create Client1 Virtual Machine
+1. Repeat the steps to create a new Virtual Machine named **Client1**.
+2. Connect **Client1** to **SUBNETA**.
+3. Attach **Windows 10 ISO** and install **Windows 10 Pro**.
+![Virtual Machine Settings](https://imgur.com/rYM9hiw.png)
 
-5. Click the **Play** button in PowerShell ISE to run the script.
+#### Install Windows 10 on Client1
+1. Complete the Windows 10 installation on **Client1**.
 
-Your code should look something like this when creating new users:
+#### Rename Computer in Client1
+1. Open **System Properties** in **Client1**.
+2. Click **Change** next to the computer name.
+3. Rename the computer to **Client1**.
+4. Restart the machine to apply the changes.
 
+## Video Walkthrough
+[Watch the Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-### Step 4 – Join Windows Clients to the Domain
-To join the client machine to the domain:
+## Next Steps
+- Step 2 – Install & Configure AD, RAS/NAT, DHCP
+- Step 3 – Create 1000 Users in AD with PowerShell
+- Step 4 – Join **Client1** to the Domain
+- Step 5 – Login to **Client1** as a Created User
 
-1. Ensure both the client and domain controller (DC) server are on the same **NIC (Network Interface Card).**
-2. Once logged into the client machine, open **Command Prompt (CMD)** and run:
-   ```cmd
-   ipconfig
-   ping mydomain.com
-   ```
-   - This verifies network settings and connectivity to the domain server.
-   - The result should be as followed in the image.
-     <img src="https://imgur.com/dazfCRo.png" height="80%" width="80%" alt="Join-PC"/>
+Feel free to contribute or reach out for any questions!
 
-3. Open **Settings > System > About > Rename this PC (Advanced) > Change.**
-4. Under **Member of**, select **Domain** and enter **mydomain.com**.
-5. Click **OK**, then enter your **Domain Controller (DC) credentials** when prompted.
-
-<img src="https://imgur.com/TCWxw4a.png" height="80%" width="80%" alt="Join-PC"/>
-
-
-### Step 5 – Log in to the Client Machine with a Created User
-Now that all the steps are complete, we will test logging into the client machine with one of the created accounts:
-
-1. Log out of the client machine.
-2. Select **Other Users.**
-3. Log in using one of the generated AD accounts for example below:
-   
-   - **Username:** `aabrev`  
-   - **Password:** `Password1`
-   
-<img src="https://imgur.com/H9X18dO.png" height="80%" width="80%" alt="AD-Users"/>
-<img src="https://imgur.com/1OmQIqp.png" height="80%" width="80%" alt="Client-Login-Screen"/>
-<img src="https://imgur.com/dkC56WO.png" height="80%" width="80%" alt="Client-Logged-on"/>
-
-
-
-
-If you can successfully log in with the AD account, your lab setup is complete! Additionally, since we configured **RAS/NAT**, the client machine should have internet access through the domain controller.
-
----
-
-## 🎉 Congratulations! Your Home Lab setup is now complete.
-  Full Video of the final Lab.
