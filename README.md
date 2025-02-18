@@ -51,16 +51,16 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 #### Install Windows Server 2016 on DC1
 1. Start **DC1** and install **Windows Server 2016**.
 
-#### Rename Network Adapters in DC1
-1. Open **Network Settings** in **DC1**.
-2. Rename **NAT** and **SUBNETA** for easy identification.
-![Virtual Machine Settings](https://imgur.com/Tzwn4Dx.png)
-
 #### Rename Computer in DC1
 1. Open **System Properties** in **DC1**.
 2. Click **Change** next to the computer name.
 3. Rename the computer to **DC1**.
 4. Restart the machine to apply the changes.
+
+#### Rename Network Adapters in DC1
+1. Open **Network Settings** in **DC1**.
+2. Rename **NAT** and **SUBNETA** for easy identification.
+![Virtual Machine Settings](https://imgur.com/Tzwn4Dx.png)
 
 #### Create Client1 Virtual Machine
 1. Repeat the steps to create a new Virtual Machine named **Client1**.
@@ -86,5 +86,4 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 - Step 4 – Join **Client1** to the Domain
 - Step 5 – Login to **Client1** as a Created User
 
-Feel free to contribute or reach out for any questions!
 
