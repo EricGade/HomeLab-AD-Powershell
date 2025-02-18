@@ -98,8 +98,54 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 ## Video Walkthrough
 [Watch the Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
+---
+### Step 2: Install & Configure AD, RAS/NAT, DHCP
+
+#### Install Active Directory Domain Services (AD DS)
+1. Open **Server Manager** on **DC1**.
+2. Click **Add roles and features**.
+3. Select **Role-based or feature-based installation** and click **Next**.
+4. Select **DC1** and click **Next**.
+5. Select **Active Directory Domain Services** and click **Add Features** when prompted.
+6. Click **Next** through the wizard, then click **Install**.
+7. After installation, click **Promote this server to a domain controller** in the notification area.
+
+#### Configure AD Domain Controller
+1. In the **Deployment Configuration** window, select **Add a new forest**.
+2. Enter a **Root domain name** (e.g., `homelab.local`), and click **Next**.
+3. Set the **Forest functional level** and **Domain functional level** to **Windows Server 2016**.
+4. Enter and confirm a **Directory Services Restore Mode (DSRM) password**.
+5. Click **Next** through the rest of the wizard and click **Install**.
+6. The server will restart automatically after promotion.
+
+#### Install and Configure RAS/NAT
+1. Open **Server Manager**.
+2. Click **Add roles and features**.
+3. Select **Remote Access** and click **Next**.
+4. Under **Role Services**, select **Routing** and click **Add Features** when prompted.
+5. Complete the installation and open **Routing and Remote Access** from **Tools** in **Server Manager**.
+6. Right-click on **DC1** (in the **Routing and Remote Access** console) and select **Configure and Enable Routing and Remote Access**.
+7. Select **Custom configuration**, check **NAT**, and click **Next**.
+8. Click **Finish**, then **Start service**.
+9. Expand **IPv4**, right-click **NAT**, and select **New Interface**.
+10. Select **NAT (External Network)** and click **OK**.
+11. Select **Public interface connected to the Internet** and check **Enable NAT on this interface**.
+12. Click **OK**.
+13. Repeat **New Interface** for **SUBNETA (Private Network)**, select **Private interface connected to the private network**, and click **OK**.
+
+#### Install and Configure DHCP
+1. Open **Server Manager**.
+2. Click **Add roles and features**.
+3. Select **DHCP Server** and click **Next** through the wizard. Click **Install**.
+4. After installation, open **DHCP** from **Tools** in **Server Manager**.
+5. Expand **DC1**, right-click **IPv4**, and select **New Scope**.
+6. Click **Next** and enter a **Scope Name** (e.g., `SUBNETA`), then click **Next**.
+7. Enter the **IP address range** (e.g., **172.16.0.100** to **172.16.0.200**) and **Subnet mask** (**255.255.255.0**), then click **Next**.
+8. Add any **Exclusions** if necessary or click **Next**.
+9. Set the **Lease Duration** as desired, and click **Next**.
+10. Select **Yes, I want to configure these
+
 ## Next Steps
-- Step 2 – Install & Configure AD, RAS/NAT, DHCP
 - Step 3 – Create 1000 Users in AD with PowerShell
 - Step 4 – Join **Client1** to the Domain
 - Step 5 – Login to **Client1** as a Created User
