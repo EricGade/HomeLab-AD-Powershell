@@ -34,11 +34,13 @@ Open Hyper-V Manager. Right-click on the local machine and select **Virtual Swit
 Next, click on **New Virtual Network Switch** and create two virtual switches:
 - **NAT** (External)
 - **SUBNETA** (Private)
+  
 ![Virtual Switch Manager Open](https://imgur.com/6bGexoi.png)
 
 #### Create 2 Virtual Machines ("DC1" and "Client1")
 1. Configure the Virtual Machine settings to match the summary shown below.
 2. Attach **Windows Server 2016 ISO** to the **DC1** virtual machine.
+   
 ![Virtual Machine Settings](https://imgur.com/ZdZtpFk.png)
 
 #### Configure DC1 Network Adapters
@@ -46,6 +48,7 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 2. Add a second network adapter:
     - **NAT** for external access
     - **SUBNETA** for internal network
+      
 ![Virtual Machine Settings](https://imgur.com/BpG2ZDi.png)
 
 #### Install Windows Server 2016 on DC1
@@ -60,12 +63,27 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 #### Rename Network Adapters in DC1
 1. Open **Network Settings** in **DC1**.
 2. Rename **NAT** and **SUBNETA** for easy identification.
-![Virtual Machine Settings](https://imgur.com/Tzwn4Dx.png)
+   
+![Virtual Machine Settings](https://imgur.com/6RUafEc.png)
+
+#### Set Static IP Address for SUBNETA (Private Network) in DC1
+
+1. Open **Network Settings** on **DC1**.
+2. Locate the **SUBNETA (Private Network)** adapter, right-click on it, and select **Properties**.
+3. In the list of items, select **Internet Protocol Version 4 (TCP/IPv4)**, then click **Properties**.
+4. Select **Use the following IP address** and enter the following values:
+   - **IP address:** `172.16.0.1`
+   - **Subnet mask:** `255.255.255.0`
+   - **Preferred DNS server:** `127.0.0.1`
+5. Click **OK** to save the settings and close the dialog.
+   
+![Virtual Machine Settings](https://imgur.com/tAnqObi.png)
 
 #### Create Client1 Virtual Machine
 1. Repeat the steps to create a new Virtual Machine named **Client1**.
 2. Connect **Client1** to **SUBNETA**.
 3. Attach **Windows 10 ISO** and install **Windows 10 Pro**.
+
 ![Virtual Machine Settings](https://imgur.com/rYM9hiw.png)
 
 #### Install Windows 10 on Client1
