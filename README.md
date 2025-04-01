@@ -144,10 +144,83 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 8. Add any **Exclusions** if necessary or click **Next**.
 9. Set the **Lease Duration** as desired, and click **Next**.
 10. Select **Yes, I want to configure these
+    
+---
 
-## Next Steps
-- Step 3 – Create 1000 Users in AD with PowerShell
-- Step 4 – Join **Client1** to the Domain
-- Step 5 – Login to **Client1** as a Created User
+## Step 3: Create 1000 Users in AD with PowerShell
 
+### 1. **Download the PowerShell Script**
+If you haven't yet, download the PowerShell script by clicking the following link:  
+[**DOWNLOAD NOW**](https://github.com/EricGade/HomeLab-AD-Powershell/blob/main/AD_PS-master.zip).
+
+### 2. **Extract and Copy the Script to Server 2016**
+1. After downloading, extract the zip file on your host PC.
+2. Copy the folder and paste the **AD_PS-master** folder into the Server 2016 virtual machine you created earlier.
+
+   ![Folder Location](https://imgur.com/e3cBk5u.png)
+
+### 3. **Run PowerShell ISE as Administrator**
+1. Open **PowerShell ISE** on the **Server 2016** virtual machine.
+2. Right-click on **PowerShell ISE** and select **Run as Administrator**.
+### 4. **Load the PowerShell Script**
+1. In PowerShell ISE, click **File > Open** and navigate to the **AD_PS-master** folder where you pasted the script.  
+   The path will look like this:  
+   `C:\Users\<YourUserName>\Desktop\AD_PS-master`.
+2. Once inside the **AD_PS-master** folder, open the **1_CREATE_USERS.ps1** file (this is the script to create the users).
+### 5. **Set Execution Policy**
+Before running the script, you'll need to set the execution policy to allow the script to run:
+1. In PowerShell ISE, enter the following command to set the execution policy to **Unrestricted**:
+   ```powershell
+   Set-ExecutionPolicy Unrestricted
+### 6. **Navigate to the Script Directory**
+
+1. Next, navigate to the **AD_PS-master** folder by using the **cd** command.  
+   Example (adjust the path if needed):
+   ```powershell
+   cd C:\Users\<YourUserName>\Desktop\AD_PS-master
+   ```
+   Replace `<YourUserName>` with your actual username on the Server 2016 machine.
+3. Once you're in the directory, type the following to list the contents and verify the files are there:
+
+   ```powershell
+   ls
+   ```
+### 7. **Run the Script**
+
+1. Click the **Play** button in PowerShell ISE to run the script. This will create the 1000 users in Active Directory, following the default parameters in the script.
+
+---
+
+## Step 4: Join **Client1** to the Domain
+
+1. **On Client1**, open **System Properties**:
+   - Right-click on **This PC** and select **Properties**.
+   - Click on **Change settings** under **Computer name, domain, and workgroup settings**.
+
+2. Click **Change** and enter the domain name `homelab.local`.
+
+3. When prompted, enter the credentials of a domain administrator (e.g., `Administrator@homelab.local`).
+
+4. **Restart Client1** to apply the changes and join the domain.
+
+5. After the restart, **Client1** will be part of the **homelab.local** domain.
+
+---
+
+## Step 5: Login to **Client1** as a Created User
+
+1. Log out of the local account on **Client1**.
+
+2. On the login screen, select **Other user** and enter the domain username in the following format:
+
+   - `homelab.local\User1` (or any of the created users from Step 3).
+
+3. Enter the password for the created user (e.g., `P@ssw0rd` or any password you set during user creation).
+
+4. You should now successfully log in to **Client1** using the domain account you created in **Step 3**.
+
+---
+
+## Conclusion
+Congratulations! You've successfully set up an Active Directory environment, created 1000 users using PowerShell, and configured your machines to be part of the domain. This lab provides a solid foundation for working with Windows Server, Active Directory, and PowerShell in a virtualized environment.
 
