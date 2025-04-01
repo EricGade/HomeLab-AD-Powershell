@@ -94,10 +94,6 @@ Next, click on **New Virtual Network Switch** and create two virtual switches:
 2. Click **Change** next to the computer name.
 3. Rename the computer to **Client1**.
 4. Restart the machine to apply the changes.
-
-## Video Walkthrough
-[Watch the Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
 ---
 ### Step 2: Install & Configure AD, RAS/NAT, DHCP
 
